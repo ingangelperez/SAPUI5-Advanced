@@ -16,7 +16,7 @@
       ],
       "args": [
         "--open",
-        "'test/flpSandbox.html#aapgemployees-display'"
+        "index.html"
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
