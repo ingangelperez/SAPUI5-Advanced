@@ -41,9 +41,9 @@ sap.ui.define([
                 // oJSONModel.setData(oJSON);
 
                 oJSONModel.loadData("./localService/mockdata/Employees.json");
-                oJSONModel.attachRequestCompleted(function (oEventModel) {
-                    console.log(JSON.stringify(oJSONModel.getData()));
-                });
+                // oJSONModel.attachRequestCompleted(function (oEventModel) {
+                //     console.log(JSON.stringify(oJSONModel.getData()));
+                // });
                 oView.setModel(oJSONModel);
 
             },
@@ -78,6 +78,17 @@ sap.ui.define([
 
                 //To auto-reset table filter
                 this.onFilter();
+
+            },
+
+            showPostalCode: function(oEvent) {
+                //Display employee postal code
+
+                var oItemPressed = oEvent.getSource();
+                var oContext = oItemPressed.getBindingContext();
+                var oObjectContext = oContext.getObject();
+
+                sap.m.MessageToast.show(oObjectContext.PostalCode);
 
             },
 
