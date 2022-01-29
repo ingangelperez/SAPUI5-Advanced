@@ -116,13 +116,101 @@ sap.ui.define([
                 //Hide City Column 
 
                 var oJSONModelConfig = this.getView().getModel("jsonConfig");
-                
+
                 //Another way to change the model data
                 var oJsonConfigData = oJSONModelConfig.getData();
                 oJsonConfigData.visibleCity = false;
                 oJsonConfigData.visibleBtnShowCity = true;
                 oJsonConfigData.visibleBtnHideCity = false;
                 oJSONModelConfig.refresh();
+
+            },
+
+            showOrders: function (oEvent) {
+
+                var oHboxTable = this.getView().byId("boxOrdersTable");
+                oHboxTable.destroyItems();
+
+                var oItemPressed = oEvent.getSource();
+                var oContext = oItemPressed.getBindingContext("jsonEmployees");
+                var oObjectContext = oContext.getObject();
+
+                var aOrders = oObjectContext.Orders;
+                var aOrdersItems = [];
+
+                for (var i in aOrders) {
+
+                    aOrdersItems.push(new sap.m.ColumnListItem({
+                        cells: [
+                            new sap.m.Label({ text: aOrders[i].OrderID }),
+                            new sap.m.Label({ text: aOrders[i].Freight }),
+                            new sap.m.Label({ text: aOrders[i].ShipAddress })
+                        ]
+                    }));
+
+                }
+
+                var oNewTable = new sap.m.Table({
+                    width: "auto",
+                    columns: [
+                        new sap.m.Column({ header: new sap.m.Label({ text: "{i18n>orderID}" }) }),
+                        new sap.m.Column({ header: new sap.m.Label({ text: "{i18n>freight}" }) }),
+                        new sap.m.Column({ header: new sap.m.Label({ text: "{i18n>shipAddress}" }) }),
+                    ],
+                    items: aOrdersItems
+                }).addStyleClass("sapUiTinyMargin");
+
+                oHboxTable.addItem(oNewTable);
+
+                //Another Table - Dynamic Table
+                var oNewTableJson = new sap.m.Table();
+                oNewTableJson.setWidth = "auto";
+                oNewTableJson.addStyleClass("sapUiTinyMargin");
+
+                //Columns
+                var oColumnOrderID = new sap.m.Column();
+                var oLabelOrderID = new sap.m.Label();
+                oLabelOrderID.bindProperty("text", "i18n>orderID");
+                oColumnOrderID.setHeader(oLabelOrderID);
+                oNewTableJson.addColumn(oColumnOrderID);
+
+                var oColumnFreight = new sap.m.Column();
+                var oLabelFreight = new sap.m.Label();
+                oLabelFreight.bindProperty("text", "i18n>freight");
+                oColumnFreight.setHeader(oLabelFreight);
+                oNewTableJson.addColumn(oColumnFreight);
+
+                var oColumnShipAddress = new sap.m.Column();
+                var oLabelShipAddress = new sap.m.Label();
+                oLabelShipAddress.bindProperty("text", "i18n>shipAddress");
+                oColumnShipAddress.setHeader(oLabelShipAddress);
+                oNewTableJson.addColumn(oColumnShipAddress);
+
+                //Cells
+                var oColumnListItem = new sap.m.ColumnListItem();
+
+                var oCellOrderID = new sap.m.Label();
+                oCellOrderID.bindProperty("text", "jsonEmployees>OrdersId");
+                oColumnListItem.addCell(oCellOrderID);
+
+                var oCellFreight = new sap.m.Label();
+                oCellFreight.bindProperty("text", "jsonEmployees>Freight");
+                oColumnListItem.addCell(oCellFreight);
+
+                var oCellShipAddress = new sap.m.Label();
+                oCellShipAddress.bindProperty("text", "jsonEmployees>ShipAddress");
+                oColumnListItem.addCell(oCellShipAddress);
+
+                var oBindingInfo = {
+                    model: "jsonEmployees",
+                    path: "Orders",
+                    template: oColumnListItem
+                };
+
+                oNewTableJson.bindAggregation("items", oBindingInfo);
+                oNewTableJson.bindElement("jsonEmployees>" + oContext.getPath());
+
+                oHboxTable.addItem(oNewTableJson);
 
             }
 

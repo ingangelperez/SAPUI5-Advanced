@@ -84,7 +84,7 @@
                                         </Column>
                                     </columns>
                                     <items>
-                                        <ColumnListItem type="Active" press=".showPostalCode">
+                                        <ColumnListItem type="Active" press=".showOrders">
                                             <cells>
                                                 <Label text="{jsonEmployees>EmployeeID}"/>
                                                 <Label text="{jsonEmployees>LastName}, {jsonEmployees>FirstName}"/>
@@ -94,6 +94,10 @@
                                         </ColumnListItem>
                                     </items>
                                 </Table>
+
+                                <HBox id="boxOrdersTable">
+                                </HBox>
+
                             </Panel>
                         </HBox>
                     </content>
