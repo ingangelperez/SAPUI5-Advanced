@@ -46,60 +46,9 @@
                                     icon="sap-icon://clear-filter"
                                     class="sapUiTinyMarginEnd"/>
                         </HBox>
-                        <HBox>
-                            <Panel>
 
-                                <Button id="btnShowCity" 
-                                        text="{i18n>btnShowCity}" 
-                                        visible="{jsonConfig>/visibleBtnShowCity}" 
-                                        press=".onShowCity"/>
-                                
-                                <Button id="btnHideCity" 
-                                        text="{i18n>btnHideCity}" 
-                                        visible="{jsonConfig>/visibleBtnHideCity}" 
-                                        press=".onHideCity"/>
-
-                                <Table id="tableEmployee"
-                                       items="{jsonEmployees>/}">
-                                    <columns>
-                                        <Column visible="{jsonConfig>/visibleID}">
-                                            <header>
-                                                <Label text="{i18n>tableColumnID}"/>
-                                            </header>
-                                        </Column>
-                                        <Column visible="{jsonConfig>/visibleName}">
-                                            <header>
-                                                <Label text="{i18n>tableColumnName}"/>
-                                            </header>
-                                        </Column>
-                                        <Column visible="{jsonConfig>/visibleCountry}">
-                                            <header>
-                                                <Label text="{i18n>tableColumnCountry}"/>
-                                            </header>
-                                        </Column>
-                                        <Column visible="{jsonConfig>/visibleCity}">
-                                            <header>
-                                                <Label text="{i18n>tableColumnCity}"/>
-                                            </header>
-                                        </Column>
-                                    </columns>
-                                    <items>
-                                        <ColumnListItem type="Active" press=".showOrders">
-                                            <cells>
-                                                <Label text="{jsonEmployees>EmployeeID}"/>
-                                                <Label text="{jsonEmployees>LastName}, {jsonEmployees>FirstName}"/>
-                                                <Label text="{jsonEmployees>Country}"/>
-                                                <Label text="{jsonEmployees>City}"/>
-                                            </cells>
-                                        </ColumnListItem>
-                                    </items>
-                                </Table>
-
-                                <HBox id="boxOrdersTable">
-                                </HBox>
-
-                            </Panel>
-                        </HBox>
+                        <core:Fragment fragmentName="aapg.employees.fragment.TableEmployee" type="XML"/>
+                        
                     </content>
                 </Page>
             </pages>
