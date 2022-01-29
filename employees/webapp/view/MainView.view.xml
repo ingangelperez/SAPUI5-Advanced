@@ -19,7 +19,7 @@
                                    maxLength="6" 
                                    width="200px" 
                                    class="sapUiSmallMarginEnd"
-                                   value="{/EmployeeId}"/>
+                                   value="{jsonCountries>/EmployeeId}"/>
                             <Label id="labelSelectCountry" 
                                    labelFor="slCountry" 
                                    text="{i18n>labelCountry}" 
@@ -29,10 +29,10 @@
                                     forceSelection="false"
                                     visible="true"
                                     class=""
-                                    selectedKey="{/CountryKey}"
-                                    items="{/ListCountry}">
+                                    selectedKey="{jsonCountries>/CountryKey}"
+                                    items="{jsonCountries>/ListCountry}">
                                 <items>
-                                    <core:Item key="{Key}" text="{Text}"/>
+                                    <core:Item key="{jsonCountries>Key}" text="{jsonCountries>Text}"/>
                                 </items>
                             </Select>
                             <Button id="btnFilter"
@@ -48,25 +48,36 @@
                         </HBox>
                         <HBox>
                             <Panel>
+
+                                <Button id="btnShowCity" 
+                                        text="{i18n>btnShowCity}" 
+                                        visible="{jsonConfig>/visibleBtnShowCity}" 
+                                        press=".onShowCity"/>
+                                
+                                <Button id="btnHideCity" 
+                                        text="{i18n>btnHideCity}" 
+                                        visible="{jsonConfig>/visibleBtnHideCity}" 
+                                        press=".onHideCity"/>
+
                                 <Table id="tableEmployee"
-                                       items="{/Employees}">
+                                       items="{jsonEmployees>/}">
                                     <columns>
-                                        <Column >
+                                        <Column visible="{jsonConfig>/visibleID}">
                                             <header>
                                                 <Label text="{i18n>tableColumnID}"/>
                                             </header>
                                         </Column>
-                                        <Column >
+                                        <Column visible="{jsonConfig>/visibleName}">
                                             <header>
                                                 <Label text="{i18n>tableColumnName}"/>
                                             </header>
                                         </Column>
-                                        <Column >
+                                        <Column visible="{jsonConfig>/visibleCountry}">
                                             <header>
                                                 <Label text="{i18n>tableColumnCountry}"/>
                                             </header>
                                         </Column>
-                                        <Column >
+                                        <Column visible="{jsonConfig>/visibleCity}">
                                             <header>
                                                 <Label text="{i18n>tableColumnCity}"/>
                                             </header>
@@ -75,10 +86,10 @@
                                     <items>
                                         <ColumnListItem type="Active" press=".showPostalCode">
                                             <cells>
-                                                <Label text="{EmployeeID}"/>
-                                                <Label text="{LastName}, {FirstName}"/>
-                                                <Label text="{Country}"/>
-                                                <Label text="{City}"/>
+                                                <Label text="{jsonEmployees>EmployeeID}"/>
+                                                <Label text="{jsonEmployees>LastName}, {jsonEmployees>FirstName}"/>
+                                                <Label text="{jsonEmployees>Country}"/>
+                                                <Label text="{jsonEmployees>City}"/>
                                             </cells>
                                         </ColumnListItem>
                                     </items>
