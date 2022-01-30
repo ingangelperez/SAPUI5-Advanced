@@ -11,33 +11,13 @@ sap.ui.define([
     function (Controller, Filter, FilterOperator) {
         "use strict";
 
-        return Controller.extend("aapg.employees.controller.MainView", {
+        return Controller.extend("aapg.employees.controller.MasterEmployee", {
 
             onInit: function () {
 
                 //var i18nBundle = oView.getModel("i18n").getResourceBundle();
 
-                var oView = this.getView();
-
-                var oJSONModelEmpl = new sap.ui.model.json.JSONModel();
-                oJSONModelEmpl.loadData("./localService/mockdata/Employees.json");
-                oView.setModel(oJSONModelEmpl, "jsonEmployees");
-
-                var oJSONModelCountries = new sap.ui.model.json.JSONModel();
-                oJSONModelCountries.loadData("./localService/mockdata/Countries.json");
-                oView.setModel(oJSONModelCountries, "jsonCountries");
-
-                var oJSONModelConfig = new sap.ui.model.json.JSONModel({
-                    visibleID: true,
-                    visibleName: true,
-                    visibleCountry: true,
-                    visibleCity: false,
-                    visibleBtnShowCity: true,
-                    visibleBtnHideCity: false
-
-                });
-
-                oView.setModel(oJSONModelConfig, "jsonConfig");
+                this._bus = sap.ui.getCore().getEventBus();
 
             },
 
@@ -144,6 +124,16 @@ sap.ui.define([
 
             onCloseOrders: function () {
                 this._oDialogOrders.close();
+            },
+
+            onShowEmployeeDetails: function (oEvent) {
+
+                //Get path of selected item
+                var sPath = oEvent.getSource().getBindingContext("jsonEmployees").getPath();
+
+                //Publish event to manage the navigation in the Main View
+                this._bus.publish("flexible", "showEmployee", sPath);
+
             }
 
         });

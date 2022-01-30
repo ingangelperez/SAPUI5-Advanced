@@ -93,16 +93,23 @@
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "MainView",
-          "viewName": "MainView"
-        }
+          "viewId": "Main",
+          "viewName": "Main" 
+        },
+        "TargetMasterEmployee": {
+            "viewType": "XML",
+            "transition": "slide",
+            "clearControlAggregation": false,
+            "viewId": "MasterEmployee",
+            "viewName": "MasterEmployee" 
+          }
       }
     },
     "rootView": {
-      "viewName": "aapg.employees.view.MainView",
+      "viewName": "aapg.employees.view.Main",
       "type": "XML",
       "async": true,
-      "id": "MainView"
+      "id": "Main"
     }
   }
 }
