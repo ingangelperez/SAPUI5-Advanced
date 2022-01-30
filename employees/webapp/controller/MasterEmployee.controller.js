@@ -109,7 +109,7 @@ sap.ui.define([
             showOrders: function (oEvent) {
 
                 var oIconPressed = oEvent.getSource();
-                var oContext = oIconPressed.getBindingContext("jsonEmployees");
+                var oContext = oIconPressed.getBindingContext("odataNorthwind");
 
                 if (!this._oDialogOrders) {
                     this._oDialogOrders = sap.ui.xmlfragment("aapg.employees.fragment.DialogOrders", this);
@@ -117,7 +117,7 @@ sap.ui.define([
                 }
 
                 //Dialog binding to the context to have access to the data of selected item
-                this._oDialogOrders.bindElement("jsonEmployees>" + oContext.getPath());
+                this._oDialogOrders.bindElement("odataNorthwind>" + oContext.getPath());
                 this._oDialogOrders.open();
 
             },
@@ -129,7 +129,7 @@ sap.ui.define([
             onShowEmployeeDetails: function (oEvent) {
 
                 //Get path of selected item
-                var sPath = oEvent.getSource().getBindingContext("jsonEmployees").getPath();
+                var sPath = oEvent.getSource().getBindingContext("odataNorthwind").getPath();
 
                 //Publish event to manage the navigation in the Main View
                 this._bus.publish("flexible", "showEmployee", sPath);

@@ -15,6 +15,9 @@ sap.ui.define([
 
             onInit: function () {
 
+                //Event Bus
+                this._bus = sap.ui.getCore().getEventBus();
+
             },
 
             onCreateIncidence: function () {
@@ -37,7 +40,19 @@ sap.ui.define([
             onDeleteIncidence: function (oEvent) {
                 //Delete Incidence
 
-                var oTableIncidence = this.getView().byId("tableIncidence");
+                //New logic for delete with OData
+                var oRowIncidence = oEvent.getSource().getParent().getParent();
+                var oIncidenceContextObj = oRowIncidence.getBindingContext("incidenceModel").getObject();
+
+                //Publish the event for delete in the Main controller
+                this._bus.publish("incidence", "onDeleteIncidence", {
+                    IncidenceId: oIncidenceContextObj.IncidenceId,
+                    SapId: oIncidenceContextObj.SapId,
+                    EmployeeId: oIncidenceContextObj.EmployeeId
+                });
+
+                //Old logic for delete only in the view
+                /*var oTableIncidence = this.getView().byId("tableIncidence");
                 var oRowIncidence = oEvent.getSource().getParent().getParent();
                 var oIncidenceModel = this.getView().getModel("incidenceModel");
                 var oIncidenceData = oIncidenceModel.getData();
@@ -54,7 +69,39 @@ sap.ui.define([
 
                 for (var j in oTableIncidence.getContent()) {
                     oTableIncidence.getContent()[j].bindElement("incidenceModel>/" + j);
-                }
+                }*/
+
+            },
+
+            onSaveIncidence: function (oEvent) {
+                //Save incidence - Publish event to save incidence in controller Main
+
+                var oRowIncidence = oEvent.getSource().getParent().getParent();
+                var oIncidenceContext = oRowIncidence.getBindingContext("incidenceModel");
+
+                this._bus.publish("incidence", "onSaveIncidence", { incidenceRow: oIncidenceContext.sPath.replace("/", "") });
+
+            },
+
+            updateIncidenceCreationDate: function (oEvent) {
+                //Update incidence creation date flag
+                var oContext = oEvent.getSource().getBindingContext("incidenceModel");
+                var oContextObj = oContext.getObject();
+                oContextObj.CreationDateX = true;
+            },
+
+            updateIncidenceReason: function (oEvent) {
+                //Update incidence reason flag
+                var oContext = oEvent.getSource().getBindingContext("incidenceModel");
+                var oContextObj = oContext.getObject();
+                oContextObj.ReasonX = true;
+            },
+
+            updateIncidenceType: function (oEvent) {
+                //Update incidence type flag
+                var oContext = oEvent.getSource().getBindingContext("incidenceModel");
+                var oContextObj = oContext.getObject();
+                oContextObj.TypeX = true;
             }
 
         });

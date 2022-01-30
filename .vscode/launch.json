@@ -22,9 +22,10 @@
       "internalConsoleOptions": "neverOpen",
       "port": 9229,
       "env": {
-        "DEBUG": "--inspect",
         "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/employees/employees\"}",
-        "FIORI_TOOLS_BACKEND_CONFIG": "[{\"path\":\"/V2\",\"destination\":\"Northwind\"}]"
+        "FIORI_TOOLS_BACKEND_CONFIG": "[{\"path\":\"/V2\",\"destination\":\"Northwind\"},{\"path\":\"/sap\",\"destination\":\"logaligroupERP\"}]",
+        "FIORI_TOOLS_UI5_VERSION": "",
+        "FIORI_TOOLS_UI5_URI": "https://ui5.sap.com"
       }
     },
     {

@@ -25,7 +25,11 @@ sap.ui.define([
 
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
-            }
+            },
+
+            //ID for YSAPUI5_SRV_01 Service
+            SapId: "ing.perez.angel@gmail.com"
+
         });
     }
 );
