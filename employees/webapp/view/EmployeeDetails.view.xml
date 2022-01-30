@@ -4,10 +4,9 @@
     displayBlock="true"
     xmlns="sap.m"
     xmlns:core="sap.ui.core">
-
     <Page title="{i18n>employeeDetails}">
+        
         <Panel>
-            
             <FlexBox height="65px" alignItems="Center" justifyContent="Center">
                 <items>
                     <Text text="{jsonEmployees>LastName}, {jsonEmployees>FirstName}" class="boldText"/>
@@ -49,8 +48,24 @@
                     </FlexBox>
                 </items>
             </FlexBox>
+        </Panel>
+
+        <Panel class="sapUiSizeCompact" backgroundDesign="Transparent">
+            <headerToolbar>
+                <Toolbar>
+                    <Title text="{i18n>incidence} {= ${jsonEmployees>Country} !=='US' ? ${i18n>europe} : ${i18n>us}}"/>
+                    <ToolbarSpacer />
+                    <Button text="{i18n>btnCreateIncidence}" press=".onCreateIncidence"/>
+                </Toolbar>
+            </headerToolbar>
+
+            <Panel id="tableIncidence"
+                   class="sapUiNoContentPadding" 
+                   backgroundDesign="Transparent">
+                   
+            </Panel>
 
         </Panel>
-    </Page>
 
+    </Page>
 </mvc:View>
