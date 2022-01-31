@@ -67,5 +67,11 @@
 
         </Panel>
 
+        <Panel class="sapUiSizeCompact" 
+               backgroundDesign="Transparent"
+               headerText="{i18n>employeeOrders}">
+            <core:Fragment fragmentName="aapg.employees.fragment.TableOrders" type="XML"/>
+        </Panel>
+
     </Page>
 </mvc:View>
