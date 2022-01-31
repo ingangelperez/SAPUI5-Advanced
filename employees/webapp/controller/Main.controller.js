@@ -1,10 +1,12 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
+     * @param {typeof sap.m.MessageBox} MessageBox
      */
-    function (Controller) {
+    function (Controller, MessageBox) {
         "use strict";
 
         return Controller.extend("aapg.employees.controller.Main", {
@@ -87,7 +89,8 @@ sap.ui.define([
                     oDataService.create("/IncidentsSet", oBody, {
                         success: function () {
 
-                            sap.m.MessageToast.show(oi18n.getText("odataSaveOk"));
+                            MessageBox.success(oi18n.getText("odataSaveOk"));
+                            //sap.m.MessageToast.show(oi18n.getText("odataSaveOk"));
 
                             //Read de incidents to refresh the view
                             this.onReadOdataIncidente(sEmployeeId);
@@ -99,8 +102,8 @@ sap.ui.define([
                     });
 
                 } else if (oIncidenceModelData[OData.incidenceRow].CreationDateX ||
-                           oIncidenceModelData[OData.incidenceRow].ReasonX ||
-                           oIncidenceModelData[OData.incidenceRow].TypeX) {
+                    oIncidenceModelData[OData.incidenceRow].ReasonX ||
+                    oIncidenceModelData[OData.incidenceRow].TypeX) {
 
                     var oUpdateBody = {
                         CreationDate: oIncidenceModelData[OData.incidenceRow].CreationDate,
@@ -112,8 +115,8 @@ sap.ui.define([
                     };
 
                     oDataService.update("/IncidentsSet(IncidenceId='" + oIncidenceModelData[OData.incidenceRow].IncidenceId +
-                                        "',SapId='" + this.getOwnerComponent().SapId +
-                                        "',EmployeeId='" + sEmployeeId.toString() + "')",
+                        "',SapId='" + this.getOwnerComponent().SapId +
+                        "',EmployeeId='" + sEmployeeId.toString() + "')",
                         oUpdateBody, {
                         success: function () {
 
@@ -165,6 +168,10 @@ sap.ui.define([
                         //Add new content to refresh the information of incidents in the view
                         for (var incidence in oData.results) {
 
+                            //For control of CreationDate State - By default, when read the OData the status is true
+                            oData.results[incidence]._ValidateDate = true;
+                            oData.results[incidence].EnabledSave = false;
+
                             //Create de incidence fragment - Important, the controller must be the EmployeeDetails controller
                             var newIncidence = sap.ui.xmlfragment("aapg.employees.fragment.NewIncidence", this._detailEmployeeView.getController());
                             this._detailEmployeeView.addDependent(newIncidence);
@@ -180,15 +187,15 @@ sap.ui.define([
 
             },
 
-            deleteODataIncidence: function(sChannelId, sEventName, oData){
+            deleteODataIncidence: function (sChannelId, sEventName, oData) {
                 //Delete employee incidence from backend and refresh the view
 
                 var oi18n = this.getView().getModel("i18n").getResourceBundle();
                 var oDataService = this.getView().getModel("incidenceModel");
 
                 oDataService.remove("/IncidentsSet(IncidenceId='" + oData.IncidenceId +
-                                    "',SapId='" + oData.SapId +
-                                    "',EmployeeId='" + oData.EmployeeId.toString() + "')", {
+                    "',SapId='" + oData.SapId +
+                    "',EmployeeId='" + oData.EmployeeId.toString() + "')", {
                     success: function () {
 
                         sap.m.MessageToast.show(oi18n.getText("odataDeleteOk"));
@@ -200,7 +207,7 @@ sap.ui.define([
                         sap.m.MessageToast.show(oi18n.getText("odataDeleteKo"));
                     }.bind(this)
                 });
-                
+
             }
 
         });
