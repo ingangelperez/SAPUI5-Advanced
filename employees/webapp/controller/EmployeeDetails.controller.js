@@ -173,6 +173,18 @@ sap.ui.define([
                 }
 
                 oContextObj.TypeX = true;
+            },
+
+            toOrdersDetail: function (oEvent) {
+                //Nav to Order Details
+
+                var sOrderId = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+
+                oRouter.navTo("RouteOrderDetails", {
+                    OrderId: sOrderId
+                });
+
             }
 
         });

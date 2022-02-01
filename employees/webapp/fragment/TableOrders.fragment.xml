@@ -21,7 +21,7 @@
             </Column>
         </columns>
         <items>
-            <ColumnListItem>
+            <ColumnListItem type="Navigation" press="toOrdersDetail">
                 <cells>
                     <Label text="{odataNorthwind>OrderID}"/>
                     <Label text="{odataNorthwind>Freight}"/>

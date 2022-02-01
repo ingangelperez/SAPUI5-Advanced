@@ -134,6 +134,18 @@ sap.ui.define([
                 //Publish event to manage the navigation in the Main View
                 this._bus.publish("flexible", "showEmployee", sPath);
 
+            },
+
+            toOrdersDetail: function (oEvent) {
+                //Nav to Order Details
+
+                var sOrderId = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+
+                oRouter.navTo("RouteOrderDetails", {
+                    OrderId: sOrderId
+                });
+
             }
 
         });

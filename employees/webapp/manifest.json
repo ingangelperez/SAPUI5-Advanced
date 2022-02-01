@@ -108,9 +108,16 @@
             "routes": [
                 {
                     "name": "RouteMainView",
-                    "pattern": "RouteMainView",
+                    "pattern": "",
                     "target": [
                         "TargetMainView"
+                    ]
+                },
+                {
+                    "name": "RouteOrderDetails",
+                    "pattern": "OrderDetails/{OrderId}",
+                    "target": [
+                        "TargetOrderDetails"
                     ]
                 }
             ],
@@ -122,20 +129,18 @@
                     "viewId": "Main",
                     "viewName": "Main"
                 },
-                "TargetMasterEmployee": {
+                "TargetOrderDetails": {
                     "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "MasterEmployee",
-                    "viewName": "MasterEmployee"
+                    "viewId": "OrderDetails",
+                    "viewName": "OrderDetails"
                 }
             }
         },
         "rootView": {
-            "viewName": "aapg.employees.view.Main",
+            "viewName": "aapg.employees.view.App",
             "type": "XML",
             "async": true,
-            "id": "Main"
+            "id": "app"
         }
     }
 }
