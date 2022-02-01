@@ -1,17 +1,17 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "aapg/employees/controller/Base.controller",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator"
 ],
     /**
-     * @param {typeof sap.ui.core.mvc.Controller} Controller
+     * @param {typeof aapg.employees.controller.Base} Base
      * @param {typeof sap.ui.model.Filter} Filter
      * @param {typeof sap.ui.model.FilterOperator} FilterOperator
      */
-    function (Controller, Filter, FilterOperator) {
+    function (Base, Filter, FilterOperator) {
         "use strict";
 
-        return Controller.extend("aapg.employees.controller.MasterEmployee", {
+        return Base.extend("aapg.employees.controller.MasterEmployee", {
 
             onInit: function () {
 
@@ -133,18 +133,6 @@ sap.ui.define([
 
                 //Publish event to manage the navigation in the Main View
                 this._bus.publish("flexible", "showEmployee", sPath);
-
-            },
-
-            toOrdersDetail: function (oEvent) {
-                //Nav to Order Details
-
-                var sOrderId = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
-                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-
-                oRouter.navTo("RouteOrderDetails", {
-                    OrderId: sOrderId
-                });
 
             }
 

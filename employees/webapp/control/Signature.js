@@ -8,8 +8,8 @@ sap.ui.define([
         "use strict";
 
         return Control.extend("aapg.employees.control.Signature", {
-
-            metadata: {
+  
+            metadata: { 
                 properties: {
                     width: {
                         type: "sap.ui.core.CSSSize",
