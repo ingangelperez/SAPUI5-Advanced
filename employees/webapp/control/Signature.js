@@ -8,8 +8,8 @@ sap.ui.define([
         "use strict";
 
         return Control.extend("aapg.employees.control.Signature", {
-  
-            metadata: { 
+
+            metadata: {
                 properties: {
                     width: {
                         type: "sap.ui.core.CSSSize",
@@ -45,19 +45,38 @@ sap.ui.define([
 
             },
 
-            onAfterRendering: function(){
+            onAfterRendering: function () {
 
                 var oCanvas = document.querySelector("canvas");
                 try {
+
                     this.signaturePad = new SignaturePad(oCanvas);
+                    this.signaturePad.fill = false;
+
+                    oCanvas.addEventListener("mousedown", function () {
+                        this.signaturePad.fill = true;
+                    }.bind(this));
+
                 } catch (e) {
                     console.error(e);
-                }
-
+                } 
+       
             },
 
-            clear: function(){
+            clear: function () {
                 this.signaturePad.clear();
+            },
+
+            isFill: function () {
+                return this.signaturePad.fill;
+            },
+
+            getSignature: function () {
+                return this.signaturePad.toDataURL();
+            },
+
+            setSignature: function (oSignature) {
+                this.signaturePad.fromDataURL(oSignature);
             }
 
         });
